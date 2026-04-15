@@ -4,97 +4,324 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-  <link href="css/style.css" rel="stylesheet">
-  <title>Document</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <title>LMT Creative</title>
+  <style>
+    :root {
+      --white: #FFFFFF;
+      --black: #000000;
+      --accent: #E8A838;
+      --gray: #1a1a1a;
+      --light-gray: #D3D3D3;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      background: rgba(0,0,0,0.85) !important;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 0.75rem 1.5rem;
+      z-index: 1050;
+    }
+
+    .navbar .nav-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      transition: background 0.25s;
+    }
+    .navbar .nav-icon:hover { background: rgba(255,255,255,0.1); }
+
+    .navbar .profile-img {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      object-fit: cover;
+    }
+
+    /* ── TICKER STRIP (infinite scroll) ── */
+    .ticker-wrapper {
+      overflow: hidden;
+      background: #0a0a0a;
+      padding: 8px 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .ticker-track {
+      display: flex;
+      gap: 8px;
+      width: max-content;
+      animation: ticker-scroll 35s linear infinite;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+
+    @keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .ticker-item {
+      flex-shrink: 0;
+      width: 200px;
+      height: 130px;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .ticker-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .ticker-item:hover img { transform: scale(1.08); }
+
+    /* ── HERO ── */
+    .hero-wrapper {
+      position: relative;
+      min-height: 600px;
+      background-image: url('images/Hero image.webp');
+      background-size: cover;
+      background-position: center 30%;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(0,0,0,0.75) 0%,
+        rgba(0,0,0,0.2) 50%,
+        rgba(0,0,0,0.55) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: 3rem 2.5rem;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 320px;
+    }
+
+    .hero-clapper {
+      width: 200px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    }
+
+    .hero-left p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.6;
+    }
+
+    .btn-ghost {
+      display: inline-block;
+      padding: 0.55rem 1.5rem;
+      border: 1px solid rgba(255,255,255,0.5);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.25s;
+      background: transparent;
+      cursor: pointer;
+      width: fit-content;
+    }
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: #fff;
+      color: #fff;
+    }
+
+    .hero-right {
+      text-align: right;
+      max-width: 520px;
+    }
+
+    .hero-right h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      color: #fff;
+      text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+    }
+
+    .hero-right h1 span { color: var(--accent); }
+
+    .hero-right p {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+    }
+
+    .btn-solid {
+      display: inline-block;
+      margin-top: 1.25rem;
+      padding: 0.65rem 2rem;
+      background: var(--accent);
+      color: #000;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.25s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-solid:hover {
+      background: #f5be5a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(232,168,56,0.4);
+    }
+
+    /* ── OFFCANVAS ── */
+    .offcanvas {
+      background: #0d0d0d !important;
+      border-left: 1px solid rgba(255,255,255,0.08) !important;
+    }
+    .offcanvas-title {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 0.1em;
+      font-size: 1.4rem;
+      color: var(--accent);
+    }
+    .offcanvas .nav-link {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.85) !important;
+      transition: color 0.2s;
+      padding: 0.25rem 0;
+    }
+    .offcanvas .nav-link:hover { color: var(--accent) !important; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero-content { flex-direction: column; align-items: flex-start; }
+      .hero-right { text-align: left; }
+      .ticker-item { width: 150px; height: 100px; }
+    }
+  </style>
 </head>
 <body>
-  <div class="Nav-icons container-fluid">
-    <nav class="navbar fixed-top bg-black d-flex justify-content-between p-3">
-      <div class="profile col-1"><a class="navbar-brand" href="Profile.html">
-        <img src="images/Profile.webp" alt="" width="50" height="50">
-      </a></div>
 
-      <div class="mainnav d-flex justify-content-between">
-        <div class="library col-4"><a class="navbar-brand" href="library.html">
-          <img src="images/Library.webp" alt="" width="30" height="30">
-        </a></div>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-dark fixed-top">
+    <a href="Profile.html" class="nav-icon">
+      <img src="images/Profile.webp" class="profile-img" alt="Profile">
+    </a>
 
-        <div class="home col-4"><a class="navbar-brand" href="Home.html">
-        <img src="images/Home.webp" alt="" width="30" height="30">
-        </a></div>
+    <div class="d-flex align-items-center gap-3">
+      <a href="library.html" class="nav-icon">
+        <img src="images/Library.webp" alt="Library" width="26" height="26">
+      </a>
+      <a href="Home.html" class="nav-icon">
+        <img src="images/Home.webp" alt="Home" width="26" height="26">
+      </a>
+      <a href="protfolio.html" class="nav-icon">
+        <img src="images/Portfolio.webp" alt="Portfolio" width="26" height="26">
+      </a>
+    </div>
 
-        <div class="portfolio col-4"><a class="navbar-brand" href="protfolio.html">
-        <img src="images/Portfolio.webp" alt="" width="30" height="30">
-      </a></div>
+    <a href="#sidebar" class="nav-icon" data-bs-toggle="offcanvas" role="button" aria-controls="sidebar">
+      <img src="images/menu.svg" alt="Menu" width="24" height="24">
+    </a>
+  </nav>
 
-      </div>
-      <div>
-        <a href="#sidebar" class="navbar-brand" data-bs-toggle="offcanvas" role="button" aria-controls="sidebar"><img src="images/menu.svg" alt="menu"></a>
-      </div>
-    </nav>
-  </div>
-  <div class="collage-1 container-fluid mt-5 pt-5">
-    <div class="row g-2">
-      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 d-none d-md-block"><div class="img-box"><img src="images/collage-1.webp" alt="Collage 1"></div></div>
+  <!-- SPACER for fixed navbar -->
+  <div style="height: 70px;"></div>
 
-      <div class="col-xs-3 col-sm-4 col-md-3 col-lg-3"><div class="img-box"><img src="images/collage-2.webp" alt="Collage 2"></div></div>
-
-      <div class="col-xs-1 col-sm-4 col-md-1 col-lg-1"><div class="img-box"><img src="images/collage-3.webp" alt="Collage 3"></div></div>
-
-      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 d-none d-md-block"><div class="img-box"><img src="images/collage-4.webp" alt="Collage 4"></div></div>
-
-      <div class="col-xs-3 col-sm-4 col-md-3 col-lg-3"><div class="img-box"><img src="images/collage-5.webp" alt="Collage 5"></div></div>
+  <!-- SCROLLING IMAGE STRIP -->
+  <div class="ticker-wrapper">
+    <div class="ticker-track" id="tickerTrack">
+      <!-- First set -->
+      <div class="ticker-item"><img src="images/collage-1.webp" alt=""></div>
+      <div class="ticker-item"><img src="images/collage-2.webp" alt=""></div>
+      <div class="ticker-item"><img src="images/collage-3.webp" alt=""></div>
+      <div class="ticker-item"><img src="images/collage-4.webp" alt=""></div>
+      <div class="ticker-item"><img src="images/collage-5.webp" alt=""></div>
+      <div class="ticker-item"><img src="images/collage-6.webp" alt=""></div>
+      <div class="ticker-item"><img src="images/collage-7.webp" alt=""></div>
+      <div class="ticker-item"><img src="images/collage-8.webp" alt=""></div>
+      <div class="ticker-item"><img src="images/collage-9.webp" alt=""></div>
+      <div class="ticker-item"><img src="images/collage-10.webp" alt=""></div>
+      <!-- Duplicate set for seamless loop -->
+      <div class="ticker-item"><img src="images/collage-1.webp" alt=""></div>
+      <div class="ticker-item"><img src="images/collage-2.webp" alt=""></div>
+      <div class="ticker-item"><img src="images/collage-3.webp" alt=""></div>
+      <div class="ticker-item"><img src="images/collage-4.webp" alt=""></div>
+      <div class="ticker-item"><img src="images/collage-5.webp" alt=""></div>
+      <div class="ticker-item"><img src="images/collage-6.webp" alt=""></div>
+      <div class="ticker-item"><img src="images/collage-7.webp" alt=""></div>
+      <div class="ticker-item"><img src="images/collage-8.webp" alt=""></div>
+      <div class="ticker-item"><img src="images/collage-9.webp" alt=""></div>
+      <div class="ticker-item"><img src="images/collage-10.webp" alt=""></div>
     </div>
   </div>
 
+  <!-- HERO -->
+  <div class="hero-wrapper">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-left">
+        <img src="images/clapperboard.webp" class="hero-clapper" alt="Clapperboard">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+        <button class="btn-ghost">See More</button>
+      </div>
 
-  <div class="collage-2 container-fluid mt-1 pt-1 mb-2 pb-2">
-    <div class="row g-2">
-      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-3 d-none d-md-block"><div class="img-box-2"><img src="images/collage-6.webp" alt="Collage 1"></div></div>
-
-      <div class="col-xs-3 col-sm-4 col-md-3 col-lg-2"><div class="img-box"><img src="images/collage-7.webp" alt="Collage 2"></div></div>
-
-      <div class="col-xs-1 col-sm-4 col-md-1 col-lg-1"><div class="img-box"><img src="images/collage-8.webp" alt="Collage 3"></div></div>
-
-      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-4 d-none d-md-block"><div class="img-box"><img src="images/collage-9.webp" alt="Collage 4"></div></div>
-
-      <div class="col-xs-3 col-sm-4 col-md-3 col-lg-2"><div class="img-box"><img src="images/collage-10.webp" alt="Collage 5"></div></div>
-    </div>
-  </div>
-  
-  
-  <div class="hero-image container-fluid hero-wrapper d-flex">
-    <div class="left-box d-flex flex-column align-items-center justify-content-start p-4">
-      <img src="images/clapperboard.webp" class="img-fluid rounded mb-3" style="max-width: 250px;" alt="Clapperboard">
-      <p class="text-white text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-    </div>
-    <button type="button" class="btn btn-outline-light mb-3">See More</button>
-  
-    
-    <div class="lmt-ideas d-flex flex-column justify-content-center align-items-center text-center text-white p-4">
-      <h1 class="fw-bold">LIMITLESS IDEAS</h1>
-      <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      <button type="button" class="btn btn-dark">Check it out</button>
+      <div class="hero-right">
+        <h1>LIMITLESS <span>IDEAS</span></h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <button class="btn-solid">Check it out</button>
+      </div>
     </div>
   </div>
 
-
-    <div class="offcanvas offcanvas-end bg-dark text-white" tabindex="-1" id="sidebar" aria-labelledby="sidebar-label">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="sidebar-label">Menu</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-    
-      <div class="offcanvas-body d-flex flex-column justify-content-start">
-        <a href="Aboutus.html" class="nav-link text-white fw-bold fs-4 mb-3">About us</a>
-        <a href="Contactus.html" class="nav-link text-white fw-bold fs-4">Contact us</a>
-      </div>
+  <!-- OFFCANVAS MENU -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="sidebar" aria-labelledby="sidebar-label">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="sidebar-label">Menu</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
+    <div class="offcanvas-body d-flex flex-column justify-content-start gap-2 pt-4">
+      <a href="Aboutus.html" class="nav-link">About Us</a>
+      <a href="Contactus.html" class="nav-link">Contact Us</a>
+    </div>
+  </div>
 
-    
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
